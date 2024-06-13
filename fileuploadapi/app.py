@@ -1,7 +1,24 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import os
+import logging
+from pathlib import Path
 
 app = Flask(__name__)
+
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+
+# Determine the uploads directory on the desktop
+desktop = Path.home() / 'Desktop'
+UPLOADS_DIR = desktop / 'uploads'
+
+def create_uploads_directory():
+    """Ensure the uploads directory exists."""
+    if not UPLOADS_DIR.exists():
+        UPLOADS_DIR.mkdir(parents=True)
+        app.logger.info(f"Created uploads directory: {UPLOADS_DIR}")
+    else:
+        app.logger.info(f"Uploads directory already exists: {UPLOADS_DIR}")
 
 @app.route('/')
 def index():
@@ -15,28 +32,27 @@ def upload():
 def uploadFile():
     try:
         if "file" not in request.files:
-            return "Please select a file"
+            return jsonify(error="Please select a file"), 400
 
         file = request.files['file']
         if file.filename == '':
-            return "File not selected"
+            return jsonify(error="File not selected"), 400
 
         file_size = request.content_length
-        if file_size > 1048576:
-            return "File size is too big. Upload file smaller in size"
+        if file_size > 1048576:  # 1 MB limit
+            return jsonify(error="File size is too big. Upload file smaller in size"), 400
 
-        
-        uploads_dir = os.path.join(os.getcwd(), 'uploads')
-        os.makedirs(uploads_dir, exist_ok=True)
+        # Ensure 'uploads' directory exists
+        create_uploads_directory()
 
+        # Save file
+        file.save(UPLOADS_DIR / file.filename)
         
-        file.save(os.path.join(uploads_dir, file.filename))
-        
-        return "File uploaded successfully"
+        return jsonify(message="File uploaded successfully"), 200
 
     except Exception as e:
         app.logger.error(f"Error uploading file: {str(e)}")
-        return "Internal Server Error", 500
+        return jsonify(error="Internal Server Error"), 500
 
 if __name__ == '__main__':
-    app.run()
+    app.run()  # Set to False in production
