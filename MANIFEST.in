@@ -4,4 +4,4 @@ include LICENSE
 recursive-include fileuploadapi/*.py
 
 graft fileUploadAPI/templates
-graft fileUploadAPI/uploads
+graft fileUploadAPI/uploads *
