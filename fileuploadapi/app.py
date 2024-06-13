@@ -25,11 +25,11 @@ def uploadFile():
         if file_size > 1048576:
             return "File size is too big. Upload file smaller in size"
 
-        # Ensure 'uploads' directory exists
+        
         uploads_dir = os.path.join(os.getcwd(), 'uploads')
         os.makedirs(uploads_dir, exist_ok=True)
 
-        # Save file
+        
         file.save(os.path.join(uploads_dir, file.filename))
         
         return "File uploaded successfully"

@@ -11,14 +11,14 @@ setup(
         ],
     },
     package_data={
-        '': ['templates/*.html', 'uploads/*'],
+        '': ['templates/*.html'],
     },
     author=" Sushma",
     author_email="saisushma.patange@gmail.com",
     description="This API is used to accept file uploads from end users.",
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    url="https://github.com/P-Sai-Sushma/demoAPI.git",
+    url="https://github.com/P-Sai-Sushma/FileUploadAPI.git",
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
