@@ -1,4 +1,4 @@
 include README.md
 include LICENSE
-include fileUploadAPI/templates/*.html
-graft fileUploadAPI/uploads
+recursive-include fileuploadapi/
+
