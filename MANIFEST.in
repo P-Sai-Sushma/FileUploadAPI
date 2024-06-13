@@ -2,4 +2,4 @@ include README.md
 include LICENSE
 include requirements.txt
 recursive-include fileUploadAPI/templates *
-graft fileUploadAPI/uploads
+recursive-include fileUploadAPI/uploads *
