@@ -1,5 +1,7 @@
 include README.md
 include LICENSE
+
 recursive-include fileuploadapi/*.py
-include fileUploadAPI/templates/*.html
-graft uploads
+
+graft fileUploadAPI/templates
+graft fileUploadAPI/uploads
