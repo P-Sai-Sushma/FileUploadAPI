@@ -5,15 +5,14 @@ from pathlib import Path
 
 app = Flask(__name__)
 
-# Setup logging
+
 logging.basicConfig(level=logging.INFO)
 
-# Determine the uploads directory on the desktop
+# Determining the uploads directory on the desktop
 desktop = Path.home() / 'Desktop'
 UPLOADS_DIR = desktop / 'uploads'
 
 def create_uploads_directory():
-    """Ensure the uploads directory exists."""
     if not UPLOADS_DIR.exists():
         UPLOADS_DIR.mkdir(parents=True)
         app.logger.info(f"Created uploads directory: {UPLOADS_DIR}")
