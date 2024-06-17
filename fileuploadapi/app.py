@@ -42,10 +42,8 @@ def uploadFile():
         if file_size > 1048576:  # 1 MB limit
             return jsonify(error="File size is too big. Upload file smaller in size"), 400
 
-        # Ensure 'uploads' directory exists
         create_uploads_directory()
 
-        # Save file
         file.save(UPLOADS_DIR / file.filename)
         
         return jsonify(message="File uploaded successfully"), 200
@@ -55,4 +53,4 @@ def uploadFile():
         return jsonify(error="Internal Server Error"), 500
 
 if __name__ == '__main__':
-    app.run()  # Set to False in production
+    app.run()  
